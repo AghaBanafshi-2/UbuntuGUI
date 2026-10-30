@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AghaBanafshi • Server Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0a14;
+    --bg2:#150f22;
+    --purple:#a855f7;
+    --purple2:#7c3aed;
+    --purple-glow:rgba(168,85,247,.45);
+    --text:#e9e3f5;
+    --muted:#9a8fb5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(124,58,237,.25), transparent 45%),
+      radial-gradient(circle at 80% 80%, rgba(168,85,247,.18), transparent 45%),
+      linear-gradient(160deg, var(--bg), var(--bg2));
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    overflow-x:hidden;
+  }
+
+  .card{
+    width:100%;
+    max-width:620px;
+    background:rgba(21,15,34,.75);
+    border:1px solid rgba(168,85,247,.35);
+    border-radius:20px;
+    padding:48px 36px;
+    text-align:center;
+    backdrop-filter:blur(14px);
+    box-shadow:
+      0 0 0 1px rgba(168,85,247,.08),
+      0 20px 60px -20px var(--purple-glow),
+      inset 0 1px 0 rgba(255,255,255,.05);
+    position:relative;
+    animation:fadeUp .8s ease both;
+  }
+  .card::before{
+    content:"";
+    position:absolute; inset:-1px;
+    border-radius:20px;
+    padding:1px;
+    background:linear-gradient(135deg, var(--purple), transparent 40%, var(--purple2));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+            mask-composite:exclude;
+    pointer-events:none;
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    letter-spacing:.08em;
+    color:var(--purple);
+    border:1px solid rgba(168,85,247,.35);
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:26px;
+    background:rgba(168,85,247,.08);
+  }
+  .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--purple);
+    box-shadow:0 0 10px var(--purple);
+    animation:pulse 1.6s infinite;
+  }
+
+  h1{
+    font-size:clamp(1.6rem, 4vw, 2.3rem);
+    line-height:1.35;
+    font-weight:700;
+    margin-bottom:14px;
+    background:linear-gradient(120deg,#fff 10%, var(--purple) 55%, var(--purple2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  p.sub{
+    color:var(--muted);
+    font-size:.92rem;
+    line-height:1.9;
+    margin-bottom:34px;
+  }
+  p.sub code{
+    color:var(--purple);
+    background:rgba(168,85,247,.1);
+    padding:2px 7px;
+    border-radius:6px;
+  }
+
+  .btn-group{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  a.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    font-family:inherit;
+    font-weight:700;
+    font-size:1rem;
+    color:#fff;
+    padding:16px 30px;
+    border-radius:14px;
+    background:linear-gradient(135deg, var(--purple2), var(--purple));
+    box-shadow:0 10px 30px -8px var(--purple-glow);
+    transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    border:1px solid rgba(255,255,255,.12);
+  }
+  a.btn:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.1);
+    box-shadow:0 16px 40px -8px var(--purple-glow);
+  }
+  a.btn:active{transform:translateY(0)}
+  a.btn svg{width:20px;height:20px}
+
+  .btn-gui{
+    background:linear-gradient(135deg,#6d28d9,#a855f7);
+  }
+
+  .hint{
+    margin-top:22px;
+    font-size:.72rem;
+    color:var(--muted);
+    opacity:.7;
+    letter-spacing:.04em;
+  }
+
+  footer{
+    margin-top:34px;
+    text-align:center;
+    animation:fadeUp 1s .2s ease both;
+  }
+  footer a{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:.82rem;
+    letter-spacing:.03em;
+    transition:color .25s ease, text-shadow .25s ease;
+  }
+  footer a span{color:var(--purple);font-weight:700}
+  footer a:hover{
+    color:var(--text);
+    text-shadow:0 0 18px var(--purple-glow);
+  }
+
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+  <main class="card">
+    <div class="badge"><span class="dot"></span> SERVER ONLINE</div>
+
+    <h1>یک حالت را انتخاب کنید</h1>
+    <p class="sub">
+      ترمینال سریع یا محیط توسعه کامل؟<br>
+      هر دو از طریق <code>NGINX Basic Auth</code> محافظت می‌شوند.
+    </p>
+
+    <div class="btn-group">
+      <a class="btn" href="/terminal/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4 17 10 11 4 5"/>
+          <line x1="12" y1="19" x2="20" y2="19"/>
+        </svg>
+        ترمینال
+      </a>
+
+      <a class="btn btn-gui" href="/ide/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18"/>
+          <path d="M9 21V9"/>
+        </svg>
+        محیط گرافیکی (GUI)
+      </a>
+    </div>
+
+    <div class="hint">// terminal: ttyd · gui: wede</div>
+  </main>
+
+  <footer>
+    <a href="https://t.me/AghaBanafshi" target="_blank" rel="noopener">
+      Created By <span>AghaBanafshi</span> · t.me/AghaBanafshi
+    </a>
+  </footer>
+
+</body>
+  </html>
